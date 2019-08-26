@@ -1,5 +1,7 @@
 package a1;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class A1Novice {
@@ -13,42 +15,39 @@ public class A1Novice {
 		// that are going to be entered.
 		int totalCustomers = scan.nextInt();
 		
-		// Create arrays that will store all information for each user.
-		String[] customerFirstNames = new String[totalCustomers];
-		String[] customerLastNames = new String[totalCustomers];
-		double[] customerTotalCost = new double[totalCustomers];
+		// String -> Customer First and Last  Double -> Customer Total Cost
+		HashMap<String, Double> customers = new HashMap<>();
 		
 		// Loop through each customer and collect the needed information
 		for (int i=0;i<totalCustomers;i++) {
-			// Get the 3 segments of the next input line: First, Last, Items Bought
-			String[] customerData = { scan.next(), scan.next(), scan.next() };
+			// Get the First and Last Name
+			String name = scan.next() + " " + scan.next();
 			
-			// Using the customer data get the total number of items bought (Index: 2)
-			int itemsBought = Integer.parseInt(customerData[2]);
+			int itemsBought = scan.nextInt();
 			
 			double totalCost = 0.0;
 			
 			// Loop through each item bought and total it all up
 			for (int j=0;j<itemsBought;j++) {
-				// Get the 3 segments of next input line: Quantity, Name, Price
-				String[] itemData = { scan.next(), scan.next(), scan.next() };
+				int quantity = scan.nextInt();
 				
-				// Add the total cost of the item to the total customer cost.
-				//			  	Price of Item (Index: 2)		Quantity of that Item (Index: 0)
-				totalCost += (Double.parseDouble(itemData[2]) * Integer.parseInt(itemData[0]));
+				// Skip over the name of the item as it is not needed
+				scan.next();
+				
+				double price = scan.nextDouble();
+				
+				// Add the total cost of the item to the total customer cost
+				totalCost += (quantity * price);
 			}
 			
-			// Store First Name, Last Name, Total Customer Cost into the earlier created arrays
-			customerTotalCost[i] = totalCost;
-			customerFirstNames[i] = customerData[0];
-			customerLastNames[i] = customerData[1];
+			// Store First Name, Last Name, Total Customer Cost into the HashMap
+			customers.put(name, totalCost);
 		}
 		
 		// Loop through each customer and print all the information
-		for (int i=0;i<totalCustomers;i++) {
-			// Prints first letter of the first name, last name, total cost of customer to 2 decimal places.
-			System.out.println(customerFirstNames[i].charAt(0) + ". " +
-								customerLastNames[i] + ": " + String.format("%.2f", customerTotalCost[i]));
+		for (Map.Entry<String, Double> customer : customers.entrySet()) {
+			System.out.println(customer.getKey().charAt(0) + ". " + 
+					customer.getKey().split(" ")[1] + ": " + String.format("%.2f", customer.getValue()));
 		}
 		
 		// Close scanner as user input is no longer needed.
