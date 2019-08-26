@@ -28,7 +28,7 @@ public class A1Jedi {
 			// get the item name
 			String itemName = scan.next();
 			
-			// Skip the price value
+			// Skip the price value as it is not needed
 			scan.nextDouble();
 			
 			// Put the item into the HashMaps with a default value of 0
