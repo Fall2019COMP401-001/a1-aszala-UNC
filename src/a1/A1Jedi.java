@@ -58,8 +58,6 @@ public class A1Jedi {
 				int quantity = scan.nextInt();
 				String itemName = scan.next();
 				
-				itemsAlreadyBought.add(itemName);
-				
 				// Update the quantity bought and the amount of customers who bought HashMaps
 				quantityBought.replace(itemName, quantityBought.get(itemName) + quantity);
 				
@@ -77,8 +75,10 @@ public class A1Jedi {
 				
 				// If the item hasnt already been accounted for and needs to update
 				// the customer value
-				if (addCustomer)
+				if (addCustomer) {
 					customersWhoBought.replace(itemName, customersWhoBought.get(itemName) + 1);
+					itemsAlreadyBought.add(itemName);
+				}
 			}
 			
 		}
