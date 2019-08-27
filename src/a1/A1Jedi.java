@@ -77,6 +77,7 @@ public class A1Jedi {
 				// the customer value
 				if (addCustomer) {
 					customersWhoBought.replace(itemName, customersWhoBought.get(itemName) + 1);
+					// Add the item to the list of items already accounted
 					itemsAlreadyBought.add(itemName);
 				}
 			}
