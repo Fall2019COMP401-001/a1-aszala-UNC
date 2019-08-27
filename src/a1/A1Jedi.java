@@ -1,5 +1,6 @@
 package a1;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -50,14 +51,34 @@ public class A1Jedi {
 			
 			int numItemsBought = scan.nextInt();
 			
+			ArrayList<String> itemsAlreadyBought = new ArrayList<>();
+			
 			// Calculates the quantity and the amount of customers who bought given item
 			for (int j=0;j<numItemsBought;j++) {
 				int quantity = scan.nextInt();
 				String itemName = scan.next();
 				
+				itemsAlreadyBought.add(itemName);
+				
 				// Update the quantity bought and the amount of customers who bought HashMaps
 				quantityBought.replace(itemName, quantityBought.get(itemName) + quantity);
-				customersWhoBought.replace(itemName, customersWhoBought.get(itemName) + 1);
+				
+				boolean addCustomer = true;
+				
+				// Check if the item has already been added for this customer
+				for (String item : itemsAlreadyBought) {
+					// If the item has already been accounted for then change bool
+					// so that it isnt double acounted for
+					if (item.equals(itemName)) {
+						addCustomer = false;
+						break;
+					}
+				}
+				
+				// If the item hasnt already been accounted for and needs to update
+				// the customer value
+				if (addCustomer)
+					customersWhoBought.replace(itemName, customersWhoBought.get(itemName) + 1);
 			}
 			
 		}
